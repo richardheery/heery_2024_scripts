@@ -71,7 +71,7 @@ normal_sample_correlation_tables_combined$definition =
 normal_sample_correlation_tables_combined = filter(normal_sample_correlation_tables_combined, !is.na(q_value))
 
 # Convert q-value to a significance symbol
-normal_sample_correlation_tables_combined$significance = plotR::sig_sym(normal_sample_correlation_tables_combined$q_value, symbol = "\u204E")
+normal_sample_correlation_tables_combined$significance = ::sig_sym(normal_sample_correlation_tables_combined$q_value, symbol = "\u204E")
 
 # Make violin plots for distributions of correlation values without clusters
 normal_sample_all_correlations_violin_plots = 

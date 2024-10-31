@@ -91,11 +91,11 @@ promoter_region_plot = ggplot(promoter_definition_df,
   labs(x = NULL, y = "Promoter\nDefinition")
 
 # Add significance symbol to promoter_diff_meth_results
-promoter_diff_meth_results$significance = plotR::sig_sym(promoter_diff_meth_results$fdr, symbol = "\u204E")
+promoter_diff_meth_results$significance = ::sig_sym(promoter_diff_meth_results$fdr, symbol = "\u204E")
 
 # Create a data.frame with the methylation values for all common_transcripts
 promoter_definition_methylation_df = tidyr::pivot_wider(select(promoter_diff_meth_results, definition, transcript_id, meth_diff), names_from = definition, values_from = meth_diff)
-promoter_definition_methylation_df = tibble::column_to_rownames(promoter_definition_methylation_df, "transcript_id")
+promoter_definition_methylation_df = tibblecolumn_to_rownames(promoter_definition_methylation_df, "transcript_id")
 
 # Make plots of CpG methylation change and promoter definition differential methylation for FLT1 and SLC5A8
 flt1_cpg_meth_change_plot = plot_cpg_methylation_change(transcript = "ENST00000282397", 

@@ -55,8 +55,8 @@ tmr_remap_enrichment_significant = lapply(tmr_remap_enrichment, function(x)
   dplyr::filter(x, q_value < 0.05, enrichment > 1))
 
 # Save all significant results as a single table
-helpR::fwrite(bind_rows(tmr_remap_enrichment_significant, .id = "group"), 
-  filename = "tf_bs_results.tsv")
+data.table::fwrite(bind_rows(tmr_remap_enrichment_significant, .id = "group"), 
+  file = "tf_bs_results.tsv")
 
 # Get all significant TRs
 significant_tfs = lapply(tmr_remap_enrichment_significant, function(x) x$tf_name)
@@ -90,7 +90,7 @@ combined_tmr_remap_enrichment_plot = ggplot(combined_tmr_remap_enrichment,
     scale_colour_continuous(guide = guide_colorbar(order = 1, reverse = T)) + 
     labs(x = "Relative Enrichment", y = "Transcriptional Regulator", title = NULL, size = "Overlap Size") +
   facet_wrap("group", nrow = 2, dir = "v", scales = "free")
-combined_tmr_remap_enrichment_plot = plotR::customize_ggplot_theme(combined_tmr_remap_enrichment_plot, 
+combined_tmr_remap_enrichment_plot = customize_ggplot_theme(combined_tmr_remap_enrichment_plot, 
   xlab = "Relative Enrichment", ylab = "Transcriptional Regulator", title = NULL, color_title = "Adjusted\np-value", 
   legend_title_size = 22, legend_text_size = 20, axis_title_size = 22) +
     theme(strip.background = element_blank(), axis.text.x = element_text(size = 14), 

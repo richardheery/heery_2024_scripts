@@ -3,7 +3,7 @@
 # Load required packages
 library(methodical)
 library(doParallel)
-library(plotR)
+source("../auxillary_scripts/plotting_functions.R")
 
 # Load the names of MANE transcripts
 mane_transcripts = readRDS("../auxillary_data/genomic_annotation/mane_transcript_ids.rds")
@@ -86,7 +86,7 @@ levels(mcrpc_tmr_tcga_tumour_cors$cancer_type) = c("Adrenocortical", "Bladder", 
 mcrpc_tmr_tcga_tumour_cors_boxplots = ggplot(mcrpc_tmr_tcga_tumour_cors, aes(x = cancer_type, y = cor, fill = direction)) +
   geom_boxplot() + geom_hline(yintercept = 0, linetype = "dashed") +
   facet_wrap("~ group", nrow = 3, scales = "free")
-mcrpc_tmr_tcga_tumour_cors_boxplots = plotR::customize_ggplot_theme(mcrpc_tmr_tcga_tumour_cors_boxplots, fill_colors = plotR::colour_list$purple_and_gold_light, 
+mcrpc_tmr_tcga_tumour_cors_boxplots = customize_ggplot_theme(mcrpc_tmr_tcga_tumour_cors_boxplots, fill_colors = colour_list$purple_and_gold_light, 
   xlab = "Cancer Type", ylab = "TMR Methylation-Expression Correlation", fill_title = "Direction", axis_text_size = 16) +
   theme(strip.background = element_blank(), strip.text = element_blank())
 mcrpc_tmr_tcga_tumour_cors_boxplots = ggpubr::ggarrange(mcrpc_tmr_tcga_tumour_cors_boxplots, labels = "D")

@@ -26,10 +26,10 @@ diff_meth_methylsig = function(meth_rse, genomic_regions, meth_reads_assay = "me
   max_sites_per_chunk = NULL, na.rm = TRUE, group_column, case, control, BPPARAM = BiocParallel::bpparam()){
   
   # Check that group_column is in colData(meth_Rse) and that it contains the levels indicated by case and control
-  if(!group_column %in% names(SummarizedExperiment::colData(meth_rse))){
+  if(!group_column %in% names(SummarizedExperimentcolData(meth_rse))){
     stop(paste(group_column, "is not a column in colData(meth_rse)"))
   } else {
-    if(!case %in% SummarizedExperiment::colData(meth_rse)[[group_column]] || !control %in% SummarizedExperiment::colData(meth_rse)[[group_column]]){
+    if(!case %in% SummarizedExperimentcolData(meth_rse)[[group_column]] || !control %in% SummarizedExperimentcolData(meth_rse)[[group_column]]){
       stop(paste("Either", case, "or", control, "is not present in meth_rse"))
     }
   }

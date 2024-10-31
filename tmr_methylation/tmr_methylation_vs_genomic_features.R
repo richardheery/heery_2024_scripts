@@ -61,7 +61,7 @@ system.time({genomic_features_with_tmrs_methylation =
   summarizeRegionMethylation(meth_rse = cpgea_rse, genomic_regions = genome_annotation_with_tmrs, BPPARAM = bpparam)})
 
 # Save table
-helpR::fwrite(genomic_features_with_tmrs_methylation, "tmr_methylation/genomic_features_with_tmrs_methylation.tsv.gz")
+data.table::fwrite(genomic_features_with_tmrs_methylation, "tmr_methylation/genomic_features_with_tmrs_methylation.tsv.gz")
 
 # Add region type from genomic_features_with_tmrs
 genomic_features_with_tmrs_methylation$region_type = genome_annotation_with_tmrs$region_type
@@ -80,7 +80,7 @@ genomic_feature_mean_methylation_change = lapply(genomic_features_with_tmrs_meth
 genomic_feature_mean_methylation_change = data.frame(
   region_type = rep(names(genomic_feature_mean_methylation_change), times = lengths(genomic_feature_mean_methylation_change)),
   values = unlist(genomic_feature_mean_methylation_change), row.names = NULL)
-helpR::fwrite(genomic_feature_mean_methylation_change, "tmr_methylation/genomic_feature_mean_methylation_change.tsv.gz")
+data.table::fwrite(genomic_feature_mean_methylation_change, "tmr_methylation/genomic_feature_mean_methylation_change.tsv.gz")
 
 # Create a vector with the selected genomic features to plot
 selected_genomic_features = c("CpG Island", "Predicted Promoter", "Predicted Enhancer", "Open Chromatin", 
@@ -145,7 +145,7 @@ system.time({tcga_wgbs_genomic_region_mean_meth = foreach(region = names(genome_
 # Add names to results and combine into a single table
 names(tcga_wgbs_genomic_region_mean_meth) = names(genome_annotation_with_tmrs_list)
 tcga_wgbs_genomic_region_mean_meth = dplyr::bind_rows(tcga_wgbs_genomic_region_mean_meth, .id = "region_type")
-helpR::fwrite(tcga_wgbs_genomic_region_mean_meth, "tcga_wgbs_genomic_region_mean_meth_mcrpc_tmrs.tsv.gz")
+data.table::fwrite(tcga_wgbs_genomic_region_mean_meth, "tcga_wgbs_genomic_region_mean_meth_mcrpc_tmrs.tsv.gz")
 
 # Identify submitters with matching tumour and normal samples. There is one submitter each for BLCA, BRCA, COAD, LUAD, LUSC, READ, STAD and UCEC
 normal_samples = rownames(colData(tcga_wgbs_meth_rse))[which(colData(tcga_wgbs_meth_rse)$sample_type == 11)]

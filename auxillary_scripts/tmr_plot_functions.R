@@ -122,12 +122,12 @@ plot_tmr_regions = function(tmrs, transcript_regions_gr, regions_filter, normali
   
   # Create plot of number of TMRs per region
   regions_plot_normalized = ggplot(tmr_overlaps_count_filtered, aes(x = region, y = count, fill = direction)) +
-    geom_col(position = "dodge") + scale_fill_manual(values = c(plotR::colour_list$purple_and_gold_light), drop = F)
-  regions_plot_normalized = plotR::customize_ggplot_theme(regions_plot_normalized, 
+    geom_col(position = "dodge") + scale_fill_manual(values = c(colour_list$purple_and_gold_light), drop = F)
+  regions_plot_normalized = customize_ggplot_theme(regions_plot_normalized, 
     title = NULL, 
     xlab = NULL, ylab = ylab,
-    fill_colors = c(plotR::colour_list$purple_and_gold_light), x_labels_angle = 45) +
-    scale_fill_manual(values = c(plotR::colour_list$purple_and_gold_light), drop = F)
+    fill_colors = c(colour_list$purple_and_gold_light), x_labels_angle = 45) +
+    scale_fill_manual(values = c(colour_list$purple_and_gold_light), drop = F)
   regions_plot_normalized + facet_grid(~region_class, scales = "free_x", space = "free_x") + 
     theme(panel.spacing = unit(0,'lines'), strip.background = element_blank(),
       strip.text = element_text(size = 16))

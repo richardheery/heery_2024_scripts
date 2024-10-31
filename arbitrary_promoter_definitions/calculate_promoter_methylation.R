@@ -3,7 +3,7 @@
 # Load required packages
 library(methodical)
 library(dplyr)
-library(plotR)
+source("../auxillary_scripts/plotting_functions.R")
 
 # Get promoter definition list
 promoter_definition_list = readRDS("promoter_definition_list.rds")

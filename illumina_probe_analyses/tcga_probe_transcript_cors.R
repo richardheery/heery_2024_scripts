@@ -118,26 +118,26 @@ plot_cor_results = function(cor_results, title = NULL, breaks = 2500, results_di
   # Create a barplot with the proportion of significant results in each bin
   # prop_sig_plot = ggplot(cor_results_combined_summary, aes(x = bin, y = prop_sig, fill = factor(sign))) +
   #   geom_col(position = "dodge")
-  # prop_sig_plot = plotR::customize_ggplot_theme(prop_sig_plot, xlab = "Distance to TSS (bp)", 
+  # prop_sig_plot = customize_ggplot_theme(prop_sig_plot, xlab = "Distance to TSS (bp)", 
   #   ylab = "Proportion of Significant Correlations", title = title,
   #   scale_x = scale_x_continuous(expand = expansion(mult = c(0, 0)), breaks = seq(-breaks, breaks, breaks/2), labels = scales::comma), 
-  #   fill_colors = plotR::colour_list$purple_and_gold_light, fill_title = "Correlation\nDirection") +
+  #   fill_colors = colour_list$purple_and_gold_light, fill_title = "Correlation\nDirection") +
   #   scale_y_continuous(expand = expansion(mult = c(0, 0.05)), labels = scales::comma)
   
   # Create a barplot with the proportion of significant results in each bin
   abs_cor_plot = ggplot(cor_results_combined_summary, aes(x = bin, y = abs_cor)) +
     geom_col(position = "identity", fill = "#d1eeea", color = "black")
-  abs_cor_plot = plotR::customize_ggplot_theme(abs_cor_plot, xlab = "Distance to TSS (bp)",
+  abs_cor_plot = customize_ggplot_theme(abs_cor_plot, xlab = "Distance to TSS (bp)",
     ylab = "Proportion of Illumina 450K Probes\nDisplaying Significant Correlations", title = title,
     scale_x = scale_x_continuous(expand = c(0, 0), labels = scales::comma),
-    fill_colors = plotR::colour_list$purple_and_gold_light, fill_title = "Correlation\nDirection")
+    fill_colors = colour_list$purple_and_gold_light, fill_title = "Correlation\nDirection")
   
   # # Create a barplot with the mean correlation of each bin
   # mean_cor_plot = ggplot(cor_results_combined_summary, aes(x = bin, y = mean_cor, fill = factor(sign))) +
   #   geom_col()
-  # mean_cor_plot = plotR::customize_ggplot_theme(mean_cor_plot, xlab = NULL, ylab = "Mean Correlation", 
+  # mean_cor_plot = customize_ggplot_theme(mean_cor_plot, xlab = NULL, ylab = "Mean Correlation", 
   #   scale_x = scale_x_continuous(expand = expansion(mult = c(0, 0)), breaks = seq(-4000, 4000, 2000), labels = scales::comma), 
-  #   fill_colors = plotR::colour_list$purple_and_gold_light, fill_title = "Correlation\nDirection") +
+  #   fill_colors = colour_list$purple_and_gold_light, fill_title = "Correlation\nDirection") +
   #   scale_y_continuous(expand = expansion(mult = c(0.05, 0.05)), labels = scales::comma)
   # 
   # # Combine plots
@@ -163,11 +163,11 @@ system.time({tumour_plots = lapply(tumour_results, function(x)
   plot_cor_results(cor_results = readRDS(x), title = basename(gsub("_tumour_sample_cors.rds", "", x)), results_dir = "tumour_plots"))})
 
 selected_normal_plots = lapply(list.files("normal_plots/", full.names = T, pattern = ".rds")[c(2, 5, 8, 11)], readRDS) 
-selected_normal_plots = plotR::title_ggplots(selected_normal_plots, 
+selected_normal_plots = ::title_ggplots(selected_normal_plots, 
   c("Normal Breast Samples", "Normal Head and Neck Samples", "Normal Liver Samples", "Normal Endometrial Samples"))
 
 selected_tumour_plots = lapply(list.files("tumour_plots/", full.names = T, pattern = ".rds")[c(2, 6, 16, 20)], readRDS) 
-selected_tumour_plots = plotR::title_ggplots(selected_tumour_plots, 
+selected_tumour_plots = ::title_ggplots(selected_tumour_plots, 
   c("Bladder Tumour Samples", "Colon Tumour Samples", "Lung Adenocarcinoma Tumour Samples", "Pancreatic Tumour Samples"))
 
 combined_selected_plot_list = c(selected_normal_plots, selected_tumour_plots)
@@ -254,12 +254,12 @@ tumour_results_500kb = list.files("tcga_probe_cors_500kb", pattern = "tumour", f
 # Create correlations summary plots for all normal samples
 system.time({normal_plots_500kb = lapply(normal_results_500kb, function(x)
   plot_cor_results(cor_results = readRDS(x), title = basename(gsub("_normal_sample_cors.rds", "", x)), breaks = 400000))})
-plotR::pdf_save(plotlist = normal_plots_500kb, nrows = 1, filename = "tcga_normal_plots_500kb_abs.pdf")
+pdf_save(plotlist = normal_plots_500kb, nrows = 1, filename = "tcga_normal_plots_500kb_abs.pdf")
 
 # Create correlations summary plots for all tumour samples
 system.time({tumour_plots_500kb = lapply(tumour_results_500kb, function(x)
   plot_cor_results(cor_results = readRDS(x), title = basename(gsub("_tumour_sample_cors.rds", "", x)), breaks = 400000))})
-plotR::pdf_save(plotlist = tumour_plots_500kb, nrows = 1, filename = "tcga_tumour_plots_500kb_abs.pdf")
+pdf_save(plotlist = tumour_plots_500kb, nrows = 1, filename = "tcga_tumour_plots_500kb_abs.pdf")
 
 
 ###

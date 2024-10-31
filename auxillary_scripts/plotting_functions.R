@@ -220,3 +220,36 @@ colour_list = list(
   purple_and_gold_dark = c("#7B5C90", "#bfab25"),
   purple_and_gold_light = c("#A28CB1", "#D2C465")
 )
+
+#' Save plots to a PDF file
+#'
+#' @param plotlist A list of ggplot objects
+#' @param titles A vector of titles for the plots
+#' @return A ggplot object
+#' @export
+title_ggplots = function(plotlist, titles){
+  
+  if(length(plotlist) != length(titles)){stop("plotlist and titles must be the same length")}
+    
+  lapply(seq_along(plotlist), function(x) plotlist[[x]] + ggtitle(titles[[x]]))
+}
+
+#' Save a list of plots to a PDF file
+#'
+#' @param plotlist A list of ggplot objects
+#' @param nrows Number of rows in each sheet
+#' @param ncols Number of columns in each sheet
+#' @param width Width of each page. Default is 16.
+#' @param height Heigth of each page. Default is 9.
+#' @param filename Name of output file
+#' @return Nothing
+#' @export
+pdf_save = function(plotlist, nrows = 1, ncols = 1, filename, width = 16, height = 9){
+  on.exit(expr = dev.off())
+  pdf(filename, width = width, height = height, title = basename(filename))
+  for(x in seq(1, length(plotlist)/prod(nrows, ncols))) {
+    print(ggpubr::ggarrange(plotlist = plotlist[x:(x+prod(nrows, ncols)-1)], nrow = nrows, ncol = ncols))
+  }
+  dev.off()
+  on.exit()
+}
